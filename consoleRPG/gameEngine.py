@@ -1,47 +1,90 @@
-#This will be all the rooms and objects within them
-def roomInputs(roomNumber, lightsOn):
-    if(roomNumber == 1): #This will be your apartment, starting room
-        if(lightsOn == True):
-            print("You are in your apartment. You see your door, window, and fridge.")
-        else:
-            print("You are not able to see anything in this darkness. Maybe you should turn on a light.")
-    if(roomNumber == 2): #This will be your neighbor's apartment, where you find food
-        if(lightsOn == True):
-            print("This is your neighbors apartment, it is. There is a medium-sized hole in the sidewall, fridge, window, and lamp.")
-        else:
-            print("You are not able to see anything in this darkness. Maybe you should turn on a light.")
-    if(roomNumber == 3):
-        print("You find yourself in an armory. It seems like someone beat you here leaving you with only a shield and club. There is another door but as you get closer you hear music through it. It is some of the most beautiful and calming music you've ever heard. The music draws you closer to the door. You open the door and find yourself in a concert hall now.") #Jim Jun Dun final boss, final phase
-    if(roomNumber == 4): #Maze begins
-        print("There isn't anything in here. It's just an empty room with nothing except ")
-        
-    else:
-        roomNumber = 0 #In the hallway the lights will reset, you might find enemies, or find items/food and weapons
-        print("You find yourself in the hallway.")
-    
-#Add in background story
+from ast import In
+import random
+
+print("Hello, choose a character.")
+print("Fighter or climber")
 userInput = input("> ")
 
+print("You wake up and you are in the middle of what seems to be a never ending hallway.")
+print("Which way do you go.")
+userInput = input("> ")
+if('fighter' or 'climber' in userInput):
+    routeOne(0,0)
+
+
 #This is all possible input player is able to use for a result
-def allInputs():
+def routeOne(currentRoom, roomNumber):
+    userInput
     for s in userInput:
-        if 'door' in s:
-            roomInputs
-        if 'look' in s:
-            print(roomInputs(roomNumber=currentRoom, lightsOn=checkingLights))
-        if 'fridge' in s:
-            roomInputs
-                     
-#This will turn on the lights and if they are on you will be able to see the room
-def checkingLights(): 
-    for s in userInput:
-        if 'lights' in s:
-            if(roomInputs(roomNumber=currentRoom, lightsOn=True)):
-                print("The lights are already on.")
-                return True
-            if(roomInputs(roomNumber=currentRoom, lightsOn=False)): 
-                print("You turn on the lights and now able to see what's around you.")
-                return True
-            if(roomInputs(roomNumber=0)): #Whenever you enter the hallway it will reset the lights to be off
-                return False
+        if 'north' in s and currentRoom <= 8:
+            print("It's quiet. You hear nothing except your footsteps. You find a door but upon trying it, you find it is locked.")
+            currentRoom = roomNumber + 1
+            break
+        if 'north' in s and currentRoom == 8:
+            print("Heard something. You hear a noise from the door to your left. As you get closer it stops, you try the door and this one isn't locked.")    
+            currentRoom = roomNumber + 1
+            break
+        if 'north' in s and currentRoom == 9:
+            print("It's not quiet anymore. You hear noises all around you. Each room has something behind it now. The doors are trying to open, you need to run.")
+            currentRoom = roomNumber + 1
+            break
+        if 'north' in s and currentRoom >= 10:
+            print("Keep going. They are still trying to get you.")
+            currentRoom = roomNumber + 1
+            break
+        if 'north' in s and currentRoom == 12:
+            print("You can't go any further. Something is stopping you. All you see is brightness, you can't see what it is but it's in your way. You must remove it.")
+            userInput = input("> ")
+            if 'fight' is s and currentRoom == 12:
+                chance = random.randint(1,3)
+                if chance == 1:
+                    print("You swing blindly at the light and you feel it jolt back in shock.")
+                    print("Do you try to swing again")
+                    userInput("> ")
+                    if 'yes' in s:
+                        chance = random.randint(1,3)
+                        if chance == 1:
+                            print("You got lucky and hit in the right spot it seems because it falters and fades.")
+                            print("You can see the end. You see an exit sign and run to it. It opens to reveal a empty field. No clouds, trees, or even wind. It seems that you are the only thing here. It's rather peaceful though.")
+                            exit()
+                        if chance == 2:
+                            print("You swing again but this time it was ready. It flashed another blinding light so you couldn't see. You move in a backward to keep distance.")
+                            print("Do you swing again")
+                            break
+                        if chance == 3:
+                            print("You swing and feel it connect but it doesn't seem to be scared anymore. This time it swings back but as it swings you feel a burning sensation. Last thing you see the bright light as you burn alive.")
+                            print("You were burnt alive. Killed by the Light.")
+                            exit()
+                if chance == 2:
+                    print("You swing but completely wiff it hitting a door. You're able to hit it hard enough for the break down. You hear something running out but just as you hear that you see the light flash and it's gone. It seemed to have stopped the beast, protecting you.")
+                    print("Should you swing again, it did protect you.")
+                    if 'yes' in s:
+                        print("Just as you raise your fist to swing you hear a loud humming. You look around to find what is making it but instead, you see every single door has now opened up. You turn back to the light but it's vanished, leaving you to fight them all yourself.")
+                        print("You weren't able to fight the horde of beast. Killed by the horde.")
+                        exit()
+                    if 'no' in s:
+                        print("You thank the light. It dims down to reveal a wall with a door. It slowly fades enough to allow you to walk through it. You walk through opening the door. It holds nothing but snowed over mountian top. It is steep but there is a path and a shelter in front of you.")
+                        print("You turn back to see nothing is there. The door is gone, leaving you to just walk to the shelter instead. You can begin to live a more peaceful live.")
+                        exit()
+                if chance == 3:
+                    print("You follow up with a full combo. It just moves further and further back the more you hit it. It doesn't show any sort of resistance but it does feel like it's getting brighter with each hit. It gets so bright you eventually are unable to swing anymore. Once you are able to see again, you aren't in the hallway anymore and the light is no where to be seen. You are able to just see these weird orange scribbles on the walls. You aren't able to understand them but when you touch one you see a red snake appear after you touch it and feel a great earthquake.")
+                    print("You got crushed by the orange scribbles. Killed by magic maybe?")
+                    exit()
+            else:
+                print("You should fight it.")
+                break
+        if 'west' in s and roomNumber == 8:
+            print("You enter the room and see a hammer to your right. You grab it to be safe. As you grab it you hear something in the other room and then something lunges at you.")
+            chance = random.randint(1,2)
+            if chance == 1:
+                print("You swing with your hammer it kills the beast. You run back into the hall.")
+                break
+            if chance == 2:
+                print("You swing and you miss. It stabs you. You beat it dead but you aren't going to make it either.")
+                print("You were stabbed. Killed by just a knife.")
+                exit()
+        else:
+            print("Input not understood. Try again")
+            break
+            
             
